@@ -1,0 +1,25 @@
+{
+  "name": "aquila360-erp-nodejs-api",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.27.2",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "request-promise": "^4.2.6",
+    "sp-request": "^3.0.0"
+  },
+  "devDependencies": {
+    "node-sp-auth": "^3.0.5",
+    "nodemon": "^2.0.19"
+  }
+}
