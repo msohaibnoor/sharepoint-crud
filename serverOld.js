@@ -1,79 +1,45 @@
+const app = express();
 import express from "express";
 import dotenv from "dotenv";
-import cors from "cors";
-const app = express();
 import * as sprequest from "sp-request";
 import axios from "axios";
 dotenv.config();
-import salaryRoutes from "./routes/salaryRoutes.js";
-app.use(cors());
-// const credentialOptions = {
-//   responseType: "json",
-//   resolveBodyOnly: false,
-//   rejectUnauthorized: false,
-//   retry: 0,
-//   //   username: "sohaib.noor@aquila360.com",
-//   username: process.env.user,
-//   password: process.env.password,
-//   online: true,
-// };
-// let spr = sprequest.create(credentialOptions);
 
-// spr
-//   .get(
-//     "https://aquila360.sharepoint.com/sites/SPFxDevs/_api/lists/GetByTitle('Employees')/Fields/GetById('d3ab004e-feec-4a95-91f5-8e698fce4b9c')"
-//   )
-//   .then((response) => {
-//     console.log(response.body);
-//   })
-//   .catch((err) => {
-//     console.log(err);
-//     // console.log("Ohhh, something went wrong...");
-//   });
+const credentialOptions = {
+  responseType: "json",
+  resolveBodyOnly: false,
+  rejectUnauthorized: false,
+  retry: 0,
+  username: "sohaib.noor@aquila360.com",
+  password: process.env.password,
+  online: true,
+};
 
-// adding new item to the list
-
+let spr = sprequest.create(credentialOptions);
+spr
+  .get(
+    "https://aquila360.sharepoint.com/sites/SPFxDevs/_api/lists/GetByTitle('Employees')/items?$filter=Name eq 'Nazim'"
+  )
+  .then((response) => {
+    console.log(response.body.d.results);
+  })
+  .catch((err) => {
+    console.log(err);
+    // console.log("Ohhh, something went wrong...");
+  });
 // spr
 //   .requestDigest("https://aquila360.sharepoint.com/sites/SPFxDevs")
 //   .then((digest) => {
 //     return spr.post(
-//       `https://aquila360.sharepoint.com/sites/SPFxDevs/_api/web/lists/GetByTitle('Employees')/items`,
-//       {
-//         headers: {
-//           "X-RequestDigest": digest,
-//         },
-//         body: {
-//           __metadata: { type: `SP.Data.EmployeesListItem` },
-//           Title: "Test",
-//           Name: "Test",
-//           Designation: "Test",
-//         },
-//       }
-//     );
-//   })
-//   .then((data) => {
-//     console.log(data);
-//   })
-//   .catch((err) => {
-//     console.log(err);
-//   });
-
-//updating list title
-
-// spr
-//   .requestDigest("https://aquila360.sharepoint.com/sites/SPFxDevs")
-//   .then((digest) => {
-//     return spr.patch(
-//       "https://aquila360.sharepoint.com/sites/SPFxDevs/_api/web/lists/GetByTitle('Employees')/fields/getbytitle('Designation')",
+//       "https://aquila360.sharepoint.com/sites/SPFxDevs/_api/web/lists/GetByTitle('Employees')",
 //       {
 //         body: {
-//           __metadata: { type: "SP.FieldText" },
-//           //   Designation: "Desupdated",
-//           Description: "Updated Description of the fiellld",
+//           __metadata: { type: "SP.List" },
+//           Title: "EmployeesUpdated",
 //         },
 //         headers: {
 //           "X-RequestDigest": digest,
-//           "X-HTTP-Method": "PATCH",
+//           "X-HTTP-Method": "MERGE",
 //           "IF-MATCH": "*",
 //         },
 //       }
@@ -83,7 +49,6 @@ app.use(cors());
 //     (response) => {
 //       if (response.statusCode === 204) {
 //         console.log("List title updated!");
-//         // console.log(response);
 //       }
 //     },
 //     (err) => {
@@ -147,6 +112,5 @@ const feTchList = async () => {
 // } catch (e) {
 //   console.log(e);
 // }
-app.use("/api/salaries", salaryRoutes);
 const port = 5000;
 app.listen(port, () => console.log("Server is running on port " + port));
