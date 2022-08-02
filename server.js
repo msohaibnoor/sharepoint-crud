@@ -6,7 +6,9 @@ import * as sprequest from "sp-request";
 import axios from "axios";
 dotenv.config();
 import salaryRoutes from "./routes/salaryRoutes.js";
+import employeesRoutes from "./routes/employeesRoutes.js";
 app.use(cors());
+app.use(express.json());
 // const credentialOptions = {
 //   responseType: "json",
 //   resolveBodyOnly: false,
@@ -148,5 +150,6 @@ const feTchList = async () => {
 //   console.log(e);
 // }
 app.use("/api/salaries", salaryRoutes);
+app.use("/api/employees", employeesRoutes);
 const port = 5000;
 app.listen(port, () => console.log("Server is running on port " + port));

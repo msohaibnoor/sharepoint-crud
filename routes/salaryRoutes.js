@@ -1,4 +1,6 @@
 import express from "express";
+import { protect } from "../middlewares/authMiddleware.js";
+
 const router = express.Router();
 import {
   getSalaries,
@@ -9,7 +11,7 @@ import {
 
 router
   .route("/")
-  .get(getSalaries)
+  .get(protect, getSalaries)
   .post(addSalaryRecord)
   .delete(deleteSalaryRecord)
   .put(updateSalaryRecord);
